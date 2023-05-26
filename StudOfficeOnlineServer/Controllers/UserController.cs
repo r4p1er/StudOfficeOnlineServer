@@ -9,11 +9,14 @@ namespace StudOfficeOnlineServer.Controllers
     public class UserController : ControllerBase
     {
         private readonly DBContext _ctx;
+        private readonly IConfiguration _configuration;
         
-        public UserController(DBContext ctx)
+        public UserController(DBContext ctx, IConfiguration configuration)
         {
             _ctx = ctx;
+            _configuration = configuration;
         }
+        
         
         [HttpGet("list")]
         public async Task<IActionResult> GetUsersList()
@@ -40,7 +43,7 @@ namespace StudOfficeOnlineServer.Controllers
                 user.Email = userPatchData.Email;
             
             if (string.IsNullOrEmpty(user.PasswordHash))
-                user.PasswordHash = userPatchData.PasswordHash; //TODO добавить тут хэширование
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(userPatchData.PasswordHash + _configuration["AuthOptions:PEPPER"]);
             
             if (user.Role == null)
                 user.Role = userPatchData.Role;
@@ -64,6 +67,9 @@ namespace StudOfficeOnlineServer.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var user = await _ctx.Users.SingleOrDefaultAsync(x => x.Id == id);
+            
+            if (user == null)
+                return BadRequest("User cannot be found.");
             
             _ctx.Users.Remove(user);
             await _ctx.SaveChangesAsync();
