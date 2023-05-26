@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,9 +16,9 @@ namespace StudOfficeOnlineServer.Migrations
                 name: "Faculties",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,9 +29,9 @@ namespace StudOfficeOnlineServer.Migrations
                 name: "Groups",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,9 +42,9 @@ namespace StudOfficeOnlineServer.Migrations
                 name: "Subjects",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,17 +55,19 @@ namespace StudOfficeOnlineServer.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: true),
-                    TeacherId = table.Column<int>(type: "int", nullable: true),
-                    AdminId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: false),
+                    Role = table.Column<int>(type: "integer", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    MiddleName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    StudentId = table.Column<int>(type: "integer", nullable: true),
+                    TeacherId = table.Column<int>(type: "integer", nullable: true),
+                    AdminId = table.Column<int>(type: "integer", nullable: true),
+                    RefreshToken = table.Column<string>(type: "text", nullable: true),
+                    RefreshTokenExpiryTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,9 +78,9 @@ namespace StudOfficeOnlineServer.Migrations
                 name: "Admins",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,17 +96,17 @@ namespace StudOfficeOnlineServer.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GroupId = table.Column<int>(type: "int", nullable: true),
-                    FacultyId = table.Column<int>(type: "int", nullable: true),
-                    EducationForm = table.Column<int>(type: "int", nullable: false),
-                    Citizenship = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EducationStart = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EducationEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OrderNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EducationBase = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    GroupId = table.Column<int>(type: "integer", nullable: true),
+                    FacultyId = table.Column<int>(type: "integer", nullable: true),
+                    EducationForm = table.Column<int>(type: "integer", nullable: false),
+                    Citizenship = table.Column<string>(type: "text", nullable: false),
+                    EducationStart = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EducationEnd = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    OrderNumber = table.Column<string>(type: "text", nullable: false),
+                    EducationBase = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -129,10 +132,10 @@ namespace StudOfficeOnlineServer.Migrations
                 name: "Teachers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -148,8 +151,8 @@ namespace StudOfficeOnlineServer.Migrations
                 name: "StudentSubject",
                 columns: table => new
                 {
-                    StudentsId = table.Column<int>(type: "int", nullable: false),
-                    SubjectsId = table.Column<int>(type: "int", nullable: false)
+                    StudentsId = table.Column<int>(type: "integer", nullable: false),
+                    SubjectsId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -172,8 +175,8 @@ namespace StudOfficeOnlineServer.Migrations
                 name: "SubjectTeacher",
                 columns: table => new
                 {
-                    SubjectsId = table.Column<int>(type: "int", nullable: false),
-                    TeachersId = table.Column<int>(type: "int", nullable: false)
+                    SubjectsId = table.Column<int>(type: "integer", nullable: false),
+                    TeachersId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -194,8 +197,8 @@ namespace StudOfficeOnlineServer.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "AdminId", "Email", "FirstName", "LastName", "MiddleName", "PasswordHash", "Role", "StudentId", "TeacherId" },
-                values: new object[] { 1, 1, "admin@gmail.com", "admin", "admin", "admin", "$2a$11$8IhjJWXBQoQBIgi5ZsJ41e1mHHCZt0o2P7vtY6L.zILiZLjE9UMKy", 1, null, null });
+                columns: new[] { "Id", "AdminId", "Email", "FirstName", "LastName", "MiddleName", "PasswordHash", "RefreshToken", "RefreshTokenExpiryTime", "Role", "StudentId", "TeacherId" },
+                values: new object[] { 1, 1, "admin@gmail.com", "admin", "admin", "admin", "$2a$11$pW.NwRvjhABszmvOMtxgzezwbZZkGspWRrMj011AcSpYcxjxLUW1q", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, null, null });
 
             migrationBuilder.InsertData(
                 table: "Admins",
@@ -206,8 +209,7 @@ namespace StudOfficeOnlineServer.Migrations
                 name: "IX_Admins_UserId",
                 table: "Admins",
                 column: "UserId",
-                unique: true,
-                filter: "[UserId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_FacultyId",
@@ -223,8 +225,7 @@ namespace StudOfficeOnlineServer.Migrations
                 name: "IX_Students_UserId",
                 table: "Students",
                 column: "UserId",
-                unique: true,
-                filter: "[UserId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentSubject_SubjectsId",
@@ -240,8 +241,7 @@ namespace StudOfficeOnlineServer.Migrations
                 name: "IX_Teachers_UserId",
                 table: "Teachers",
                 column: "UserId",
-                unique: true,
-                filter: "[UserId] IS NOT NULL");
+                unique: true);
         }
 
         /// <inheritdoc />

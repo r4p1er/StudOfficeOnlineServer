@@ -15,5 +15,7 @@
         public Teacher? Teacher { get; set; }
         public int? AdminId { get; set; }
         public Admin? Admin { get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
     }
 }

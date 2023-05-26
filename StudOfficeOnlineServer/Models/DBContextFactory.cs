@@ -19,7 +19,7 @@ namespace StudOfficeOnlineServer.Models
             }
 
             var config = builder.Build();
-            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseNpgsql(config.GetConnectionString("DefaultConnection"));
 
             return new DBContext(optionsBuilder.Options, config);
         }
