@@ -56,9 +56,8 @@ namespace StudOfficeOnlineServer.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Name")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -129,6 +128,28 @@ namespace StudOfficeOnlineServer.Migrations
                         .IsUnique();
 
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("StudOfficeOnlineServer.Models.StudentDocument", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StudentDocuments");
                 });
 
             modelBuilder.Entity("StudOfficeOnlineServer.Models.Subject", b =>
@@ -208,7 +229,7 @@ namespace StudOfficeOnlineServer.Migrations
                     b.Property<DateTime>("RefreshTokenExpiryTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("Role")
+                    b.Property<int?>("Role")
                         .HasColumnType("integer");
 
                     b.Property<int?>("StudentId")
@@ -230,7 +251,7 @@ namespace StudOfficeOnlineServer.Migrations
                             FirstName = "admin",
                             LastName = "admin",
                             MiddleName = "admin",
-                            PasswordHash = "$2a$11$pW.NwRvjhABszmvOMtxgzezwbZZkGspWRrMj011AcSpYcxjxLUW1q",
+                            PasswordHash = "$2a$11$zSHusm.u4d7EDzBjLq7t6uLoLVjEcAoH.1JimlUp67qWmJ2aVZ/eO",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Role = 1
                         });
@@ -294,6 +315,15 @@ namespace StudOfficeOnlineServer.Migrations
                     b.Navigation("Group");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("StudOfficeOnlineServer.Models.StudentDocument", b =>
+                {
+                    b.HasOne("StudOfficeOnlineServer.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("StudOfficeOnlineServer.Models.Teacher", b =>

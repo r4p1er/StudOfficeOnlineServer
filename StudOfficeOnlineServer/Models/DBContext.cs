@@ -11,6 +11,7 @@ namespace StudOfficeOnlineServer.Models
         public DbSet<Group> Groups { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<StudentDocument> StudentDocuments { get; set; }
 
         private readonly IConfiguration _configuration;
         public DBContext(DbContextOptions<DBContext> options, IConfiguration configuration) : base(options)
