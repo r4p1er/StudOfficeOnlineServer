@@ -71,7 +71,7 @@ namespace StudOfficeOnlineServer.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Email),
-                new Claim(ClaimTypes.Role, Convert.ToString(user.Role))
+                new Claim(ClaimTypes.Role, Convert.ToString(user.Role)!)
             };
             var jwt = new JwtSecurityToken(
                 issuer: _configuration["AuthOptions:ISSUER"],
