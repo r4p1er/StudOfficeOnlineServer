@@ -5,9 +5,11 @@ public class Student
     public int Id { get; set; }
     
     public int? GroupId { get; set; }
+    
     public Group? Group { get; set; }
     
     public int? FacultyId { get; set; }
+    
     public Faculty? Faculty { get; set; }
 
     public EducationForm EducationForm { get; set; }
@@ -23,6 +25,8 @@ public class Student
     public EducationBase EducationBase { get; set; }
 
     public int? UserId { get; set; }
+    
     public User? User { get; set; }
+    
     public List<Subject> Subjects { get; set; } = new List<Subject>();
 }

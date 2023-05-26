@@ -32,7 +32,7 @@ namespace StudOfficeOnlineServer.Models
                                        .WithOne(x => x.User)
                                        .HasForeignKey<Teacher>(x => x.UserId);
 
-            modelBuilder.Entity<User>().HasData(new User { Id = 1, Email = _configuration["AuthOptions:AdminEmail"]!, FirstName = "admin", MiddleName = "admin", LastName = "admin", PasswordHash = BCrypt.Net.BCrypt.HashPassword(_configuration["AuthOptions:AdminPassword"] + _configuration["AuthOptions:PEPPER"]), Role = (int)Role.Admin, AdminId = 1 });
+            modelBuilder.Entity<User>().HasData(new User { Id = 1, Email = _configuration["AuthOptions:AdminEmail"]!, FirstName = "admin", MiddleName = "admin", LastName = "admin", PasswordHash = BCrypt.Net.BCrypt.HashPassword(_configuration["AuthOptions:AdminPassword"] + _configuration["AuthOptions:PEPPER"]), Role = Role.Admin, AdminId = 1 });
             modelBuilder.Entity<Admin>().HasData(new Admin { Id = 1, UserId = 1 });
         }
     }
