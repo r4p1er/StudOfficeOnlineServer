@@ -19,6 +19,7 @@ public class Student
     public DateTime EducationStart { get; set; }
     
     public DateTime EducationEnd { get; set; }
+    public DateTime OrderDate { get; set; }
 
     public string OrderNumber { get; set; } = string.Empty;
 

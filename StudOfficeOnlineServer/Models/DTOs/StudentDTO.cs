@@ -17,6 +17,7 @@ public class StudentDTO
     public string Citizenship { get; set; } = string.Empty;
     public DateTime EducationStart { get; set; }
     public DateTime EducationEnd { get; set; }
+    public DateTime OrderDate { get; set; }
     public string OrderNumber { get; set; } = string.Empty;
     public string EducationBase { get; set; } = string.Empty;
     public int Course { get; set; }

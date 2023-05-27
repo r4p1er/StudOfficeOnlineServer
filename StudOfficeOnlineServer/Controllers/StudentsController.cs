@@ -170,7 +170,8 @@ namespace StudOfficeOnlineServer.Controllers
                 OrderNumber = student.OrderNumber,
                 EducationBase = student.EducationBase.ToString(),
                 Course = student.Course,
-                StudentCard = student.StudentCard
+                StudentCard = student.StudentCard,
+                OrderDate = student.OrderDate
             };
         }
     }
