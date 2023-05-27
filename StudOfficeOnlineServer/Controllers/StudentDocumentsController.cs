@@ -32,7 +32,7 @@ namespace StudOfficeOnlineServer.Controllers
                 return NotFound(new { errors = "There is no such a student." });
             }
 
-            if (file.Length <= 0 || Path.GetExtension(file.Name) != ".pdf" || file.Length > 64 * 1024)
+            if (file.Length <= 0 || Path.GetExtension(file.FileName) != ".pdf" || file.Length > 64 * 1024)
             {
                 return BadRequest(new { errors = "Invalid file." });
             }
