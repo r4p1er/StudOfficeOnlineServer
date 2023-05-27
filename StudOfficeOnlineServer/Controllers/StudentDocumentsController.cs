@@ -21,7 +21,7 @@ namespace StudOfficeOnlineServer.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "0")]
+        [Authorize(Roles = "Student")]
         public async Task<ActionResult> PostDocument(IFormFile file)
         {
             var user = await _db.Users.FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Name));
@@ -55,7 +55,7 @@ namespace StudOfficeOnlineServer.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<StudentDocumentDTO>>> GetDocuments()
         {
-            if (User.IsInRole("0"))
+            if (User.IsInRole("Student"))
             {
                 var user = await _db.Users.FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Name));
                 var student = await _db.Students.FirstOrDefaultAsync(x => x.UserId == user!.Id);
@@ -86,7 +86,7 @@ namespace StudOfficeOnlineServer.Controllers
 
             var user = await _db.Users.FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Name));
             
-            if (User.IsInRole("0"))
+            if (User.IsInRole("Student"))
             {
                 var student = await _db.Students.FirstOrDefaultAsync(x => x.UserId == user!.Id);
 
