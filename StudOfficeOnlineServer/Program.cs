@@ -7,6 +7,10 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy => policy.WithOrigins(builder.Configuration["Cors:Origin"]!).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+})
 string connection = builder.Configuration.GetConnectionString("DefaultConnection")!;
 builder.Services.AddDbContext<DBContext>(options => options.UseNpgsql(connection));
 builder.Services.AddStackExchangeRedisCache(options =>
@@ -31,6 +35,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 var app = builder.Build();
+app.UseCors();
 
 if (app.Environment.IsDevelopment())
 {
