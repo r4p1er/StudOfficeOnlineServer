@@ -20,9 +20,9 @@ namespace StudOfficeOnlineServer.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<ConsultationTicketDTO>>> GetConsultations(DateTime date)
+        public async Task<ActionResult<IEnumerable<ConsultationTicketDTO>>> GetConsultations(ConsultationPostDTO dto)
         {
-            var consults = await _db.Consultations.Where(x => x.Date == date.Date).ToListAsync();
+            var consults = await _db.Consultations.Where(x => x.Date == dto.date.Date).ToListAsync();
             var result = new List<ConsultationTicketDTO>();
 
             foreach (var consult in consults)
@@ -34,7 +34,7 @@ namespace StudOfficeOnlineServer.Controllers
                     return NotFound(new { errors = "There is no such a student." });
                 }
 
-                result.Add(new ConsultationTicketDTO { Name = $"{student.User!.LastName} {student.User.FirstName[0]}. {student.User.MiddleName[0]}.", Time = date.ToShortTimeString(), Group = student.Group?.Name ?? "", Course = student.Course });
+                result.Add(new ConsultationTicketDTO { Name = $"{student.User!.LastName} {student.User.FirstName[0]}. {student.User.MiddleName[0]}.", Time = dto.date.ToShortTimeString(), Group = student.Group?.Name ?? "", Course = student.Course });
             }
 
             return result;
