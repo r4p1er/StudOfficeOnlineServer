@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Runtime.InteropServices.JavaScript;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,7 @@ public class AnnouncementController : ControllerBase
         {
             Title = announcementData.Title,
             Content =  announcementData.Content,
-            AdminId = id,
+            Date = DateTime.UtcNow
         };
 
         if (announcementData.GroupId != 0)
@@ -81,6 +82,9 @@ public class AnnouncementController : ControllerBase
         
         if (!string.IsNullOrEmpty(announcementData.Title))
             announcement.Title = announcementData.Title;
+        
+        if (announcementData.Date != new DateTime(0,0,0))
+            announcement.Date = announcementData.Date;
         
         if (announcementData.FacultyId != 0)
             announcement.FacultyId = announcementData.FacultyId;
