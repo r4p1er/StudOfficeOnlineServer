@@ -9,6 +9,8 @@ namespace StudOfficeOnlineServer.Models
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Announcement> Announcemenments { get; set; }
+        public DbSet<Retake> Retake { get; set; }
+
         public DbSet<Group> Groups { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Subject> Subjects { get; set; }
