@@ -19,7 +19,7 @@ namespace StudOfficeOnlineServer.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<ConsultationTicketDTO>>> GetConsultations(DateTime date)
         {
             var consults = await _db.Consultations.Where(x => x.Date == date.Date).ToListAsync();
