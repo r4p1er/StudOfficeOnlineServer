@@ -22,7 +22,7 @@ namespace StudOfficeOnlineServer.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<ConsultationTicketDTO>>> GetConsultations([FromQuery]ConsultationPostDTO dto)
         {
-            var consults = await _db.Consultations.Where(x => x.Date == dto.date.Date).ToListAsync();
+            var consults = await _db.Consultations.Where(x => x.Date.Year == dto.date.Year && x.Date.Month == dto.date.Month && x.Date.Day == dto.date.Day).ToListAsync();
             var result = new List<ConsultationTicketDTO>();
 
             foreach (var consult in consults)
@@ -45,7 +45,7 @@ namespace StudOfficeOnlineServer.Controllers
         public async Task<ActionResult> PostConsultation(ConsultationPostDTO dto)
         {
             var user = await _db.Users.FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Name));
-            var student = await _db.Students.FirstOrDefaultAsync(x => x.UserId == user!.Id);
+            var student = await _db.Students.Include(x => x.Group).FirstOrDefaultAsync(x => x.UserId == user!.Id);
 
             if (student == null)
             {
@@ -57,10 +57,11 @@ namespace StudOfficeOnlineServer.Controllers
                 return BadRequest(new { errors = "Incorrect time." });
             }
 
-            if (await _db.Consultations.AnyAsync(x => x.Date.Date == dto.date.Date && x.Date.Hour == dto.date.Hour && x.Date.Minute == dto.date.Minute))
-            {
-                return BadRequest(new { errors = "You cannot take choose this date and time." });
-            }
+            var dattas = await _db.Consultations.FirstOrDefaultAsync(x => x.Date.Date == dto.date.Date);
+            dattas = await _db.Consultations.FirstOrDefaultAsync(x => x.Date.Hour == dto.date.Hour);
+            dattas = await _db.Consultations.FirstOrDefaultAsync(x => x.Date.Minute == dto.date.Minute);
+
+            if (dattas != null) return BadRequest(new { errors = "You cannot take choose this date and time." });
 
             var ticket = new ConsultationTicket { Date = dto.date, StudentId = student.Id, Student = student };
             await _db.Consultations.AddAsync(ticket);
