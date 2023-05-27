@@ -10,7 +10,7 @@ namespace StudOfficeOnlineServer.Controllers
     {
         private readonly DBContext _ctx;
 
-        public GroupController(DBContext ctx, IConfiguration configuration)
+        public GroupController(DBContext ctx)
         {
             _ctx = ctx;
         }
@@ -58,6 +58,7 @@ namespace StudOfficeOnlineServer.Controllers
 
             return Ok(group);
         }
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

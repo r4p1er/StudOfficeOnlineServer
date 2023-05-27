@@ -7,5 +7,6 @@ public enum FacultyNames
     IEPB,
     ISES,
     ILPT,
-    PrepDepartment
+    PrepDepartment,
+    Any
 }

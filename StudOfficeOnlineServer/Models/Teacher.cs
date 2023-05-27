@@ -7,5 +7,5 @@ public class Teacher
     public string Name { get; set; } = string.Empty;
     public int? UserId { get; set; }
     public User? User { get; set; }
-    public List<Subject> Subjects { get; set; } = new List<Subject>();
+    public List<Subject> Subjects { get; set; } = new();
 }

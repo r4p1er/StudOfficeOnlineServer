@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudOfficeOnlineServer.Models;
+using StudOfficeOnlineServer.Models.DTOs;
 
 namespace StudOfficeOnlineServer.Controllers
 {
@@ -75,6 +76,27 @@ namespace StudOfficeOnlineServer.Controllers
             await _ctx.SaveChangesAsync();
 
             return NoContent();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Create(UserCreationData userCreationData)
+        {
+            var user = new User
+            {
+                Email = userCreationData.Email,
+                PasswordHash =
+                    BCrypt.Net.BCrypt.HashPassword(userCreationData.PasswordHash +
+                                                   _configuration["AuthOptions:PEPPER"]),
+                Role = userCreationData.Role,
+                FirstName = userCreationData.FirstName,
+                MiddleName = userCreationData.MiddleName,
+                LastName = userCreationData.LastName
+            };
+
+            await _ctx.Users.AddAsync(user);
+            await _ctx.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(Create), user);
         }
         
     }
