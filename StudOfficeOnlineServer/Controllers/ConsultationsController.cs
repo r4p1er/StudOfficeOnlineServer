@@ -42,7 +42,7 @@ namespace StudOfficeOnlineServer.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Student")]
-        public async Task<ActionResult> PostConsultation(DateTime date)
+        public async Task<ActionResult> PostConsultation(ConsultationPostDTO dto)
         {
             var user = await _db.Users.FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Name));
             var student = await _db.Students.FirstOrDefaultAsync(x => x.UserId == user!.Id);
@@ -52,21 +52,21 @@ namespace StudOfficeOnlineServer.Controllers
                 return NotFound(new { errors = "There is no such a student." });
             }
 
-            if ((date.Minute != 0 && date.Minute != 15 && date.Minute != 30 && date.Minute != 45) || date.Hour >= 13 && date.Hour < 15 || date.Hour >= 16)
+            if ((dto.date.Minute != 0 && dto.date.Minute != 15 && dto.date.Minute != 30 && dto.date.Minute != 45) || dto.date.Hour >= 13 && dto.date.Hour < 15 || dto.date.Hour >= 16)
             {
                 return BadRequest(new { errors = "Incorrect time." });
             }
 
-            if (await _db.Consultations.AnyAsync(x => x.Date.Date == date.Date && x.Date.Hour == date.Hour && x.Date.Minute == date.Minute))
+            if (await _db.Consultations.AnyAsync(x => x.Date.Date == dto.date.Date && x.Date.Hour == dto.date.Hour && x.Date.Minute == dto.date.Minute))
             {
                 return BadRequest(new { errors = "You cannot take choose this date and time." });
             }
 
-            var ticket = new ConsultationTicket { Date = date, StudentId = student.Id, Student = student };
+            var ticket = new ConsultationTicket { Date = dto.date, StudentId = student.Id, Student = student };
             await _db.Consultations.AddAsync(ticket);
             await _db.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetConsultations), new ConsultationTicketDTO { Name = $"{student.User!.LastName} {student.User.FirstName[0]}. {student.User.MiddleName[0]}.", Time = date.ToShortTimeString(), Group = student.Group?.Name ?? "", Course = student.Course });
+            return CreatedAtAction(nameof(GetConsultations), new ConsultationTicketDTO { Name = $"{student.User!.LastName} {student.User.FirstName[0]}. {student.User.MiddleName[0]}.", Time = dto.date.ToShortTimeString(), Group = student.Group?.Name ?? "", Course = student.Course });
         }
     }
 }
