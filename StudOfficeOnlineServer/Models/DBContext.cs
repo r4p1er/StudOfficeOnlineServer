@@ -44,7 +44,7 @@ namespace StudOfficeOnlineServer.Models
             modelBuilder.Entity<Teacher>().HasData(new Teacher { Id = 1, UserId = 2 });
 
             modelBuilder.Entity<User>().HasData(new User { Id = 3, Email = "student@gmail.com", FirstName = "student", MiddleName = "student", LastName = "student", PasswordHash = BCrypt.Net.BCrypt.HashPassword(_configuration["AuthOptions:AdminPassword"] + _configuration["AuthOptions:PEPPER"]), Role = "Student", StudentId = 1 });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 1, Citizenship = "Russia", EducationBase = "Paid", EducationForm = "Extramural", EducationStart = DateTime.UtcNow, EducationEnd = DateTime.UtcNow.AddYears(4), FacultyId = 1, GroupId = 1, OrderNumber = "order", StudentCard = "card", UserId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 1, Citizenship = "Russia", EducationBase = "Paid", EducationForm = "Extramural", EducationStart = DateTime.UtcNow, EducationEnd = DateTime.UtcNow.AddYears(4), FacultyId = 1, GroupId = 1, OrderNumber = "order", StudentCard = "card", UserId = 3, Course = 2 });
 
             modelBuilder.Entity<Group>().HasData(new Group { Id = 1, Name = "IVT-B21" });
             modelBuilder.Entity<Faculty>().HasData(new Faculty { Id = 1, Name = "IIKS" });

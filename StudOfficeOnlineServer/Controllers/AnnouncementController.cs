@@ -64,8 +64,7 @@ public class AnnouncementController : ControllerBase
         var allAnnouncements = await _ctx.Announcemenments.ToListAsync();
         var suitableAnnouncements = allAnnouncements.Select(x => 
             x.FacultyId == user.FacultyId &&
-            x.GroupId == user.GroupId &&
-            x.Course == DateTime.Now.Year - user.EducationStart.Year);
+            x.GroupId == user.GroupId);
         
         return Ok(suitableAnnouncements);
     }
