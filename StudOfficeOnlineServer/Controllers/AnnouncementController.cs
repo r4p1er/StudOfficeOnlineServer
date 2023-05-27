@@ -53,7 +53,7 @@ public class AnnouncementController : ControllerBase
         return CreatedAtAction(nameof(Create), announcement);
     }
 
-    [HttpGet("list"), Authorize(Roles = "Student")]
+    [HttpGet, Authorize(Roles = "Student")]
     public async Task<IActionResult> GetList()
     {
         var userId = await GetUserId();
