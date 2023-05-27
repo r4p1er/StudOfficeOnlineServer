@@ -66,7 +66,7 @@ namespace StudOfficeOnlineServer.Controllers
             await _db.Consultations.AddAsync(ticket);
             await _db.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetConsultations), ticket);
+            return CreatedAtAction(nameof(GetConsultations), new ConsultationTicketDTO { Name = $"{student.User!.LastName} {student.User.FirstName[0]}. {student.User.MiddleName[0]}.", Time = date.ToShortTimeString(), Group = student.Group?.Name ?? "", Course = student.Course });
         }
     }
 }
