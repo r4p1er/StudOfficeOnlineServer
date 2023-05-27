@@ -22,8 +22,9 @@ public class AnnouncementController : ControllerBase
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<int> GetUserId()
     {
+        var value = User.Claims.First(y => y.Type == ClaimTypes.Email).Value;
         var id = (await _ctx.Users
-            .SingleOrDefaultAsync(x => x.Email == User.Claims.First(y => y.Type == ClaimTypes.Email).Value)).Id;
+            .SingleOrDefaultAsync(x => x.Email == value)).Id;
         return id;
     }
 
@@ -54,7 +55,7 @@ public class AnnouncementController : ControllerBase
         return CreatedAtAction(nameof(Create), announcement);
     }
 
-    [HttpGet("list"), Authorize(Roles = "Admin, Teacher, Student")]
+    [HttpGet("list"), Authorize(Roles = "Admin,Teacher,Student")]
     public async Task<IActionResult> GetList()
     {
         var userId = await GetUserId();
