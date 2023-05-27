@@ -60,7 +60,7 @@ namespace StudOfficeOnlineServer.Controllers
             }
 
             user.RefreshToken = rt;
-            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(1);
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(30);
             await _db.SaveChangesAsync();
 
             return new JsonResult(new { accessToken = WriteJWT(user), refreshToken = user.RefreshToken, role = user.Role, id = user.Id });
@@ -77,7 +77,7 @@ namespace StudOfficeOnlineServer.Controllers
                 issuer: _configuration["AuthOptions:ISSUER"],
                 audience: _configuration["AuthOptions:AUDIENCE"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(20),
+                expires: DateTime.UtcNow.AddDays(30),
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AuthOptions:KEY"]!)), SecurityAlgorithms.HmacSha256)
             );
 

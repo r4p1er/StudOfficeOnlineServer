@@ -44,7 +44,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthentication();
-app.UseMiddleware<JWTCheckMiddleware>();
+//app.UseMiddleware<JWTCheckMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
