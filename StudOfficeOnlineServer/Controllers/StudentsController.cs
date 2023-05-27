@@ -149,9 +149,7 @@ namespace StudOfficeOnlineServer.Controllers
             await _db.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetStudents), StudentToDTO(user, (await _db.Students.Include(x => x.Group).Include(x => x.Faculty).FirstOrDefaultAsync(x => x.Id == student.Id))!));
-        }
-
-        
+        } 
 
         private StudentDTO StudentToDTO(User user, Student student)
         {
