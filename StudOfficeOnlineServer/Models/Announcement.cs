@@ -18,6 +18,5 @@ public class Announcement
     public int Course { get; set; } = 0;
 
     public int AdminId { get; set; }
-    [Column(TypeName = "timestampz")]
     public DateTime date { get; set; }
 }

@@ -13,9 +13,7 @@ namespace StudOfficeOnlineServer.Models.DTOs
         public int FacultyId { get; set; }
         public string EducationForm { get; set; } = string.Empty;
         public string Citizenship { get; set; } = string.Empty;
-        [Column(TypeName = "timestampz")]
         public DateTime EducationStart { get; set; }
-        [Column(TypeName = "timestampz")]
         public DateTime EducationEnd { get; set; }
         public string OrderNumber { get; set; } = string.Empty;
         public string EducationBase { get; set; } = string.Empty;

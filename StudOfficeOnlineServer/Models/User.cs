@@ -19,7 +19,6 @@ namespace StudOfficeOnlineServer.Models
         public int? AdminId { get; set; }
         public Admin? Admin { get; set; }
         public string? RefreshToken { get; set; }
-        [Column(TypeName = "timestampz")]
         public DateTime RefreshTokenExpiryTime { get; set; }
     }
 }
