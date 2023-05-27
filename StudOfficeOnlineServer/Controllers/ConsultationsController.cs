@@ -20,7 +20,7 @@ namespace StudOfficeOnlineServer.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<ConsultationTicketDTO>>> GetConsultations(ConsultationPostDTO dto)
+        public async Task<ActionResult<IEnumerable<ConsultationTicketDTO>>> GetConsultations([FromQuery]ConsultationPostDTO dto)
         {
             var consults = await _db.Consultations.Where(x => x.Date == dto.date.Date).ToListAsync();
             var result = new List<ConsultationTicketDTO>();
