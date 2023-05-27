@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudOfficeOnlineServer.Models;
 
@@ -15,7 +16,8 @@ namespace StudOfficeOnlineServer.Controllers
             _ctx = ctx;
         }
         
-        [HttpGet("list")]
+        [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetList()
         {
             var allGroups = await _ctx.Groups.ToListAsync();
@@ -24,7 +26,8 @@ namespace StudOfficeOnlineServer.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> Create(string name)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create([FromBody]string name)
         {
             var group = new Group
             {
@@ -38,6 +41,7 @@ namespace StudOfficeOnlineServer.Controllers
         }
         
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> Get(int id)
         {
             var group = await _ctx.Groups.SingleOrDefaultAsync(x => x.Id == id);
@@ -46,12 +50,13 @@ namespace StudOfficeOnlineServer.Controllers
         }
         
         [HttpPatch("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, [FromQuery]string newName)
         {
             var group = await _ctx.Groups.SingleOrDefaultAsync(x => x.Id == id);
             
              if (group == null)
-                BadRequest("Group cannot be found.");
+                return BadRequest("Group cannot be found.");
 
             if (!string.IsNullOrEmpty(newName))
                 group.Name = newName;
@@ -60,12 +65,13 @@ namespace StudOfficeOnlineServer.Controllers
         }
         
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var group = await _ctx.Groups.SingleOrDefaultAsync(x => x.Id == id);
 
             if (group == null)
-                BadRequest("Group cannot be found.");
+                return BadRequest("Group cannot be found.");
             
             _ctx.Groups.Remove(group);
             await _ctx.SaveChangesAsync();

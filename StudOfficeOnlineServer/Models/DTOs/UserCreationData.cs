@@ -6,7 +6,7 @@ public class UserCreationData
     
     public string PasswordHash { get; set; } = string.Empty;
     
-    public Role? Role { get; set; }
+    public string Role { get; set; } = string.Empty;
     
     public string FirstName { get; set; } = string.Empty;
     

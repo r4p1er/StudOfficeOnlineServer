@@ -12,7 +12,7 @@ public class Student
     
     public Faculty? Faculty { get; set; }
 
-    public EducationForm EducationForm { get; set; }
+    public string EducationForm { get; set; } = string.Empty;
 
     public string Citizenship { get; set; } = string.Empty;
 
@@ -22,20 +22,11 @@ public class Student
 
     public string OrderNumber { get; set; } = string.Empty;
 
-    public EducationBase EducationBase { get; set; }
-    public int Course
-    {   get
-        {
-            if (DateTime.Now.Month >= 9 && DateTime.Now.Month <= 12)
-            {
-                return DateTime.Now.Year - EducationStart.Year + 1;
-            }
-            else
-            {
-                return DateTime.Now.Year - EducationStart.Year;
-            }
-        } 
-    }
+    public string EducationBase { get; set; } = string.Empty;
+    public int Course { get; set; }
+    
+
+    public string StudentCard { get; set; } = string.Empty;
 
     public int? UserId { get; set; }
     

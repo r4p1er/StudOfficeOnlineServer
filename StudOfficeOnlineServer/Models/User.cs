@@ -1,11 +1,14 @@
-﻿namespace StudOfficeOnlineServer.Models
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace StudOfficeOnlineServer.Models
 {
     public class User
     {
         public int Id { get; set; }
         public string Email { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
-        public Role? Role { get; set; }
+        public string Role { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
         public string MiddleName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
@@ -16,6 +19,7 @@
         public int? AdminId { get; set; }
         public Admin? Admin { get; set; }
         public string? RefreshToken { get; set; }
+        [Column(TypeName = "timestampz")]
         public DateTime RefreshTokenExpiryTime { get; set; }
     }
 }
